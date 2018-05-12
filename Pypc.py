@@ -16,9 +16,8 @@ def download(a, b, url1, headers, n,items2_list):
         'Referer': u,
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'
     }
-    req3 = requests.get(url1 + a)
-    #req3 = requests.get(url1 + a,headers=headers)
 
+    req3 = requests.get(url1 + a,headers=headers)
     url_f = etree.HTML(req3.content).xpath("//div/div/a/img/@src")
     url_str = ''.join(url_f)  #返回通过指定字符连接序列中元素后生成的新字符串。
     
@@ -30,9 +29,7 @@ def download(a, b, url1, headers, n,items2_list):
 
 def htmlparser2(i,headers,items2_list,items_list):
     
-    resp2 = requests.get(i)
-    #resp2 = requests.get(i, headers=headers)
-
+    resp2 = requests.get(i, headers=headers)
     root2 = etree.HTML(resp2.content)
     items2 = root2.xpath('//div[@class="content-page"]/a/@href')
     #items2 = list(set(items2))  # 去重
@@ -44,8 +41,7 @@ def htmlparser(i,headers,items_list):
     url = "http://www.mm131.com/xinggan/list_6_{}.html".format(str(i))
     
     # req = requests.session().get(url, headers=headers)  #要用cookie headers的时候
-    req = requests.get(url)
-    #req = requests.get(url, headers=headers)
+    req = requests.get(url, headers=headers)
     
     root = etree.HTML(req.content)
     items = root.xpath('//dl[@class="list-left public-box"]/dd/a[@target="_blank" ]/@href')
@@ -72,7 +68,7 @@ if __name__ == '__main__':
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'Accept - Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.9'
-    } #伪装？
+    } #伪装
 
     n = 1  # TODO 直接开启
     items_list=multiprocessing.Manager().list()
@@ -82,7 +78,7 @@ if __name__ == '__main__':
     pool2 = multiprocessing.Pool(40)
 
     print("***************************First*****************************")  
-    for i in range(2, 4):  #2-140页，每页20，该网站第一页无后缀，第二页后有后缀
+    for i in range(2, 140):  #2-140页，每页20，该网站第一页无后缀，第二页后有后缀
         pool.apply_async(htmlparser, (i,headers,items_list))
 
     pool.close()#先close() 再join()
