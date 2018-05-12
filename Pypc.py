@@ -20,12 +20,12 @@ def download(a, b, url1, headers, n,items2_list):
     #req3 = requests.get(url1 + a,headers=headers)
 
     url_f = etree.HTML(req3.content).xpath("//div/div/a/img/@src")
-    url_str = ''.join(url_f)  #è¿”å›é€šè¿‡æŒ‡å®šå­—ç¬¦è¿æ¥åºåˆ—ä¸­å…ƒç´ åç”Ÿæˆçš„æ–°å­—ç¬¦ä¸²ã€‚
+    url_str = ''.join(url_f)  #·µ»ØÍ¨¹ıÖ¸¶¨×Ö·ûÁ¬½ÓĞòÁĞÖĞÔªËØºóÉú³ÉµÄĞÂ×Ö·û´®¡£
     
     with open("F:\\pypctest\\" + str(n) + ".jpg", "wb") as f:
         print("Saving {} pic,lefting {} pic".format(n,len(items2_list)))
         f.write((requests.get(url_str, headers=headers1)).content)
-    items2_list.remove(a)  # è§£æä¸€æ¡å°±ä¼šåˆ é™¤ä¸€æ¡
+    items2_list.remove(a)  # ½âÎöÒ»Ìõ¾Í»áÉ¾³ıÒ»Ìõ
 
 
 def htmlparser2(i,headers,items2_list,items_list):
@@ -35,15 +35,15 @@ def htmlparser2(i,headers,items2_list,items_list):
 
     root2 = etree.HTML(resp2.content)
     items2 = root2.xpath('//div[@class="content-page"]/a/@href')
-    #items2 = list(set(items2))  # å»é‡
+    #items2 = list(set(items2))  # È¥ÖØ
     items2_list.extend(items2)
-    items_list.remove(i) # è§£æä¸€æ¡å°±ä¼šåˆ é™¤ä¸€æ¡
+    items_list.remove(i) # ½âÎöÒ»Ìõ¾Í»áÉ¾³ıÒ»Ìõ
 
 
 def htmlparser(i,headers,items_list):
     url = "http://www.mm131.com/xinggan/list_6_{}.html".format(str(i))
     
-    # req = requests.session().get(url, headers=headers)  #è¦ç”¨cookie headersçš„æ—¶å€™
+    # req = requests.session().get(url, headers=headers)  #ÒªÓÃcookie headersµÄÊ±ºò
     req = requests.get(url)
     #req = requests.get(url, headers=headers)
     
@@ -52,9 +52,9 @@ def htmlparser(i,headers,items_list):
     items_list.extend(items)
 
 
-# Poolç±»å¯ä»¥æä¾›æŒ‡å®šæ•°é‡çš„è¿›ç¨‹ä¾›ç”¨æˆ·è°ƒç”¨ï¼Œå½“æœ‰æ–°çš„è¯·æ±‚æäº¤åˆ°Poolä¸­æ—¶ï¼Œ
-# å¦‚æœæ± è¿˜æ²¡æœ‰æ»¡ï¼Œå°±ä¼šåˆ›å»ºä¸€ä¸ªæ–°çš„è¿›ç¨‹æ¥æ‰§è¡Œè¯·æ±‚ã€‚å¦‚æœæ± æ»¡ï¼Œè¯·æ±‚å°±ä¼šå‘ŠçŸ¥å…ˆç­‰å¾…ï¼Œç›´åˆ°æ± ä¸­æœ‰è¿›ç¨‹ç»“æŸï¼Œæ‰ä¼šåˆ›å»ºæ–°çš„è¿›ç¨‹æ¥æ‰§è¡Œè¿™äº›è¯·æ±‚ã€‚ 
-# windowså¿…é¡»è¦ if __name__ == '__main__':
+# PoolÀà¿ÉÒÔÌá¹©Ö¸¶¨ÊıÁ¿µÄ½ø³Ì¹©ÓÃ»§µ÷ÓÃ£¬µ±ÓĞĞÂµÄÇëÇóÌá½»µ½PoolÖĞÊ±£¬
+# Èç¹û³Ø»¹Ã»ÓĞÂú£¬¾Í»á´´½¨Ò»¸öĞÂµÄ½ø³ÌÀ´Ö´ĞĞÇëÇó¡£Èç¹û³ØÂú£¬ÇëÇó¾Í»á¸æÖªÏÈµÈ´ı£¬Ö±µ½³ØÖĞÓĞ½ø³Ì½áÊø£¬²Å»á´´½¨ĞÂµÄ½ø³ÌÀ´Ö´ĞĞÕâĞ©ÇëÇó¡£ 
+# windows±ØĞëÒª if __name__ == '__main__':
 if __name__ == '__main__':
 
     output_dir='F:\\pypctest'
@@ -72,9 +72,9 @@ if __name__ == '__main__':
         'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
         'Accept - Encoding': 'gzip, deflate',
         'Accept-Language': 'zh-CN,zh;q=0.9'
-    } #ä¼ªè£…ï¼Ÿ
+    } #Î±×°£¿
 
-    n = 1  # TODO ç›´æ¥å¼€å¯
+    n = 1  # TODO Ö±½Ó¿ªÆô
     items_list=multiprocessing.Manager().list()
     items2_list = multiprocessing.Manager().list()
     pool = multiprocessing.Pool(40)
@@ -82,10 +82,10 @@ if __name__ == '__main__':
     pool2 = multiprocessing.Pool(40)
 
     print("***************************First*****************************")  
-    for i in range(2, 4):  #2-140é¡µï¼Œæ¯é¡µ20ï¼Œè¯¥ç½‘ç«™ç¬¬ä¸€é¡µæ— åç¼€ï¼Œç¬¬äºŒé¡µåæœ‰åç¼€
+    for i in range(2, 4):  #2-140Ò³£¬Ã¿Ò³20£¬¸ÃÍøÕ¾µÚÒ»Ò³ÎŞºó×º£¬µÚ¶şÒ³ºóÓĞºó×º
         pool.apply_async(htmlparser, (i,headers,items_list))
 
-    pool.close()#å…ˆclose() å†join()
+    pool.close()#ÏÈclose() ÔÙjoin()
     pool.join()
     print("**************************First done*************************")
 
